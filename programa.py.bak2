@@ -1,0 +1,242 @@
+import webbrowser
+import os
+import tkinter.filedialog as tkFileDialog
+import tkinter.messagebox as tkMessageBox
+import time
+try:
+    import Tkinter as tk
+except ImportError:
+    import tkinter as tk
+
+try:
+    import ttk
+    py3 = False
+except ImportError:
+    import tkinter.ttk as ttk
+    py3 = True
+
+import programa_support
+
+def vp_start_gui():
+    '''Starting point when module is the main routine.'''
+    global val, w, root
+    root = tk.Tk()
+    programa_support.set_Tk_var()
+    top = TopLevel (root)
+    programa_support.init(root, top)
+    root.mainloop()
+
+w = None
+def create_TopLevel(root, *args, **kwargs):
+    '''Starting point when module is imported by another program.'''
+    global w, w_win, rt
+    rt = root
+    w = tk.Toplevel (root)
+    programa_support.set_Tk_var()
+    top = TopLevel (w)
+    programa_support.init(w, top, *args, **kwargs)
+    return (w, top)
+
+def destroy_TopLevel():
+    global w
+    w.destroy()
+    w = None
+
+class TopLevel:
+    def __init__(self, top=None):
+        '''This class configures and populates the toplevel window.
+           top is the toplevel containing window.'''
+        _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
+        _fgcolor = '#000000'  # X11 color: 'black'
+        _compcolor = '#d9d9d9' # X11 color: 'gray85'
+        _ana1color = '#d9d9d9' # X11 color: 'gray85'
+        _ana2color = '#ececec' # Closest X11 color: 'gray92'
+        font12 = "-family {Segoe UI} -size 20 -weight bold -slant "  \
+            "roman -underline 0 -overstrike 0"
+        font14 = "-family {Segoe UI} -size 12 -weight normal -slant "  \
+            "roman -underline 0 -overstrike 0"
+        font15 = "-family {Segoe UI} -size 11 -weight normal -slant "  \
+            "roman -underline 0 -overstrike 0"
+
+        top.geometry("636x298+245+149")
+        top.minsize(116, 1)
+        top.maxsize(1284, 702)
+        top.resizable(1, 1)
+        top.title("Interface de Simulação 3D")
+        top.configure(background="#d9d9d9")
+        top.configure(highlightbackground="#d9d9d9")
+        top.configure(highlightcolor="black")
+
+        self.entryDiretorio = tk.Entry(top)
+        self.entryDiretorio.place(relx=0.22, rely=0.268, height=30
+                , relwidth=0.588)
+        self.entryDiretorio.configure(background="white")
+        self.entryDiretorio.configure(disabledforeground="#a3a3a3")
+        self.entryDiretorio.configure(font="-family {Courier New} -size 10")
+        self.entryDiretorio.configure(foreground="#000000")
+        self.entryDiretorio.configure(highlightbackground="#d9d9d9")
+        self.entryDiretorio.configure(highlightcolor="black")
+        self.entryDiretorio.configure(insertbackground="black")
+        self.entryDiretorio.configure(selectbackground="#c4c4c4")
+        self.entryDiretorio.configure(selectforeground="black")
+        self.entryDiretorio.configure(textvariable=programa_support.diretorio)
+
+        self.Label1 = tk.Label(top)
+        self.Label1.place(relx=0.063, rely=0.272, height=26, width=91)
+        self.Label1.configure(activebackground="#f9f9f9")
+        self.Label1.configure(activeforeground="black")
+        self.Label1.configure(background="#d9d9d9")
+        self.Label1.configure(disabledforeground="#a3a3a3")
+        self.Label1.configure(font=font15)
+        self.Label1.configure(foreground="#000000")
+        self.Label1.configure(highlightbackground="#d9d9d9")
+        self.Label1.configure(highlightcolor="black")
+        self.Label1.configure(text='''Arquivo NXT''')
+
+        self.Label1_1 = tk.Label(top)
+        self.Label1_1.place(relx=0.173, rely=0.067, height=31, width=374)
+        self.Label1_1.configure(activebackground="#f9f9f9")
+        self.Label1_1.configure(activeforeground="black")
+        self.Label1_1.configure(background="#d9d9d9")
+        self.Label1_1.configure(disabledforeground="#a3a3a3")
+        self.Label1_1.configure(font=font12)
+        self.Label1_1.configure(foreground="#ff0000")
+        self.Label1_1.configure(highlightbackground="#d9d9d9")
+        self.Label1_1.configure(highlightcolor="black")
+        self.Label1_1.configure(text='''Interface de Simulação 3D''')
+
+        self.btnSimular = tk.Button(top)
+        self.btnSimular.place(relx=0.425, rely=0.604, height=54, width=127)
+        self.btnSimular.configure(activebackground="#ececec")
+        self.btnSimular.configure(activeforeground="#000000")
+        self.btnSimular.configure(background="#d9d9d9")
+        self.btnSimular.configure(disabledforeground="#a3a3a3")
+        self.btnSimular.configure(foreground="#000000")
+        self.btnSimular.configure(highlightbackground="#dcebc7")
+        self.btnSimular.configure(highlightcolor="black")
+        self.btnSimular.configure(pady="0")
+        self.btnSimular.configure(text='''Gerar''')
+
+        self.Label1_13 = tk.Label(top)
+        self.Label1_13.place(relx=0.031, rely=0.906, height=21, width=304)
+        self.Label1_13.configure(activebackground="#f9f9f9")
+        self.Label1_13.configure(activeforeground="black")
+        self.Label1_13.configure(background="#d9d9d9")
+        self.Label1_13.configure(disabledforeground="#a3a3a3")
+        self.Label1_13.configure(font=font14)
+        self.Label1_13.configure(foreground="#000000")
+        self.Label1_13.configure(highlightbackground="#d9d9d9")
+        self.Label1_13.configure(highlightcolor="black")
+        self.Label1_13.configure(text='''Desenvolvido por Pedro Henrique de Jesus''')
+
+        self.btnBuscar = tk.Button(top)
+        self.btnBuscar.place(relx=0.849, rely=0.268, height=34, width=77)
+        self.btnBuscar.configure(activebackground="#ececec")
+        self.btnBuscar.configure(activeforeground="#000000")
+        self.btnBuscar.configure(background="#d9d9d9")
+        self.btnBuscar.configure(disabledforeground="#a3a3a3")
+        self.btnBuscar.configure(foreground="#000000")
+        self.btnBuscar.configure(highlightbackground="#d9d9d9")
+        self.btnBuscar.configure(highlightcolor="black")
+        self.btnBuscar.configure(pady="0")
+        self.btnBuscar.configure(text='''Buscar''')
+
+        self.btnAjuda = tk.Button(top)
+        self.btnAjuda.place(relx=0.236, rely=0.604, height=54, width=117)
+        self.btnAjuda.configure(activebackground="#ececec")
+        self.btnAjuda.configure(activeforeground="#000000")
+        self.btnAjuda.configure(background="#d9d9d9")
+        self.btnAjuda.configure(disabledforeground="#a3a3a3")
+        self.btnAjuda.configure(foreground="#000000")
+        self.btnAjuda.configure(highlightbackground="#d9d9d9")
+        self.btnAjuda.configure(highlightcolor="black")
+        self.btnAjuda.configure(pady="0")
+        self.btnAjuda.configure(text='''Ajuda''')
+
+        self.btnYoutube = tk.Button(top)
+        self.btnYoutube.place(relx=0.629, rely=0.604, height=54, width=117)
+        self.btnYoutube.configure(activebackground="#ececec")
+        self.btnYoutube.configure(activeforeground="#000000")
+        self.btnYoutube.configure(background="#d9d9d9")
+        self.btnYoutube.configure(disabledforeground="#a3a3a3")
+        self.btnYoutube.configure(foreground="#000000")
+        self.btnYoutube.configure(highlightbackground="#d9d9d9")
+        self.btnYoutube.configure(highlightcolor="black")
+        self.btnYoutube.configure(pady="0")
+        self.btnYoutube.configure(text='''Youtube''')
+
+        self.iniciar()
+    def iniciar(self):
+        self.dir=""
+        self.btnBuscar.configure(command=self.buscarDiretorio)
+        self.btnSimular.configure(command=self.simular)
+        self.btnAjuda.configure(command=self.ajuda)
+        self.btnYoutube.configure(command=self.youtube)
+    def ajuda(self):
+        webbrowser.open('https://www.youtube.com/channel/UCDsIP5sZpB0q28TYk3m-V-w')
+    def youtube(self):
+        webbrowser.open('https://www.youtube.com/channel/UCDsIP5sZpB0q28TYk3m-V-w')
+
+    def simular(self):
+        f = open(self.dir, "r")
+        d = "import vrep\nfrom pedrohj import *\narduino = objeto()\nmotor1 = arduino.obter('DynamicLeftJoint')\nmotor2 = arduino.obter('DynamicRightJoint')\n"
+        i = 0  # Contador de linhas
+        loopAqui = 0
+        # Ler
+        for x in f:
+
+            if x.find("task main") != -1:
+                loopAqui = 1
+
+            if loopAqui == 1:
+                if x.find("if") != -1:
+                    x = x.replace(")", "):")
+
+                if x.find("for") != -1:
+                    g = x.split(";")  # Achar os três trechos do FOR
+                    g = g[1].split("<")  # achar o numero  do contador FOR
+                    x = x.replace(x[x.find("for"):len(x)], "for i in range(" + str(g[1]) + "):\n")
+
+                d = d + x
+            i = i + 1
+
+        d = d.replace("task main()", "if True:")
+        d = d.replace("} else {", "else")
+        d = d.replace("{", " ")
+        d = d.replace("}", " ")
+        d = d.replace(";", " ")
+        d = d.replace("Wait", "arduino.delay")
+        d = d.replace("while ( true )", "while True:")
+        d = d.replace("RotateMotorEx", "arduino.RotateMotorEx")
+        d = d.replace("SteerDriveEx", "arduino.SteerDriveEx")
+        # d=d.replace("___", "   ")
+        d = d.replace("OUT_BC", "motor1,motor2")
+        d = d.replace("OUT_B", "motor1")
+        d = d.replace("OUT_C", "motor2")
+        d = d.replace("MAX", "max")
+        d = d.replace("MIN", "min")
+        d = d.replace("WHEELDIAMETER", "5.6")
+        d = d.replace("TRACKWIDTH", "12")
+        d = d.replace("PI", "3.14")
+        d = d.replace("true", "True")
+        d = d.replace("false", "False")
+
+        d=d+"\narduino.velocidade(motor1,0)\narduino.velocidade(motor2,0)\narduino.parar()\n#Gerado por Pedro H.J visite o canal Teoria na Pratica com Pedro\n"
+        print(d)
+        # Python file
+        p = open("main.py", "w")
+        p.write(d)
+        p.close()
+
+    def buscarDiretorio(self):
+        file_path = tkFileDialog.askopenfilename()  # Diretório e arquivo
+        programa_support.diretorio.set(file_path)
+        self.dir=file_path
+
+if __name__ == '__main__':
+    vp_start_gui()
+
+
+
+
+

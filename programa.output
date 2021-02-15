@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "D:/Documentos/Programas em Python/BlocosTBR/programa.py", line 134, in <module>
+    vp_start_gui()
+  File "D:/Documentos/Programas em Python/BlocosTBR/programa.py", line 32, in vp_start_gui
+    top = Toplevel1 (root)
+  File "D:/Documentos/Programas em Python/BlocosTBR/programa.py", line 94, in __init__
+    _img0 = tk.PhotoImage(file=photo_location)
+  File "C:\Users\Pedro\AppData\Local\Programs\Python\Python35\lib\tkinter\__init__.py", line 3394, in __init__
+    Image.__init__(self, 'photo', name, cnf, master, **kw)
+  File "C:\Users\Pedro\AppData\Local\Programs\Python\Python35\lib\tkinter\__init__.py", line 3350, in __init__
+    self.tk.call(('image', 'create', imgtype, name,) + options)
+_tkinter.TclError: couldn't open "D:/Documentos/Programas em Python/BlocosTBR\../../Documentos/Programas em Python/BlocosTBR/msg.png": no such file or directory
